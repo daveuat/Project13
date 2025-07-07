@@ -144,18 +144,53 @@ void Project13AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, ju
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
-    // Make sure to reset the state if your inner loop is processing
-    // the samples and the outer loop is handling the channels.
-    // Alternatively, you can process the samples with the channels
-    // interleaved by keeping the same state.
-    //for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    //{
-    //    auto* channelData = buffer.getWritePointer (channel);
-    //
-        // ..do something to the data...
-    //}
+    auto newDSPOrder = DSP_Order();
+
+    //try to pull
+    while (dspOrderFifo.pull(newDSPOrder))
+    {
+
+    }
+
+	//if you pulled, replace dspOrder;
+    if ( newDSPOrder != DSP_Order())
+		dspOrder = newDSPOrder;
+
+    //now convert dspOrder to an array of pointers.
+	DSP_Pointers dspPointers;
+
+    for( size_t i = 0; i < dspPointers.size(); ++i )
+    {
+        switch (dspOrder[i])
+        {
+            case DSP_Option::Phase:
+                dspPointers[i] = &phaser;
+                break;
+            case DSP_Option::Chorus:
+                dspPointers[i] = &chorus;
+                break;
+            case DSP_Option::Overdrive:
+                dspPointers[i] = &overdrive;
+                break;
+            case DSP_Option::LadderFilter:
+                dspPointers[i] = &ladderFilter;
+                break;
+			case DSP_Option::END_OF_LIST:
+                jassertfalse;
+                break;
+        }
+	}
+
+    //now process:
+	auto block = juce::dsp::AudioBlock<float>(buffer);
+    auto context = juce::dsp::ProcessContextReplacing<float>(block);
+    for (size_t i = 0; i < dspPointers.size(); ++i)
+    {
+        if (dspPointers[i] != nullptr)
+        {
+            dspPointers[i]->process(context);
+        }
+    }
 }
 
 //==============================================================================
