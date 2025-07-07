@@ -144,6 +144,16 @@ void Project13AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, ju
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
+    //TODO: add APVTS
+	//TODO: create audio parameter objects for each DSP option
+	//TODO: update dsp here from audio parameter
+    //TODO: save/load settings
+	//TODO: save/load dsp order
+	//TODO: drag and drop dsp order
+    //TODO: gui design for each dsp instance
+    //TODO: metering
+    //TODO: prepare all dsp
+
     auto newDSPOrder = DSP_Order();
 
     //try to pull
