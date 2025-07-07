@@ -5,6 +5,9 @@
               cppLanguageStandard="20">
   <MAINGROUP id="DiSw6k" name="Project13">
     <GROUP id="{3F67CF04-DE58-5FA3-AB17-B124BCAB748F}" name="Source">
+      <GROUP id="{213E1F05-3C2A-8A83-7943-7A45AD59313E}" name="DSP">
+        <FILE id="hS1a1v" name="Fifo.h" compile="0" resource="0" file="SimpleMultiBandComp/Source/DSP/Fifo.h"/>
+      </GROUP>
       <FILE id="fiedMI" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="KLA912" name="PluginProcessor.h" compile="0" resource="0"
@@ -18,7 +21,8 @@
   <EXPORTFORMATS>
     <VS2022 targetFolder="Builds/VisualStudio2022">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="Project13" extraCompilerFlags="/std:c++20"/>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="Project13" extraCompilerFlags="/std:c++20"
+                       headerPath="../../SimpleMultiBandComp/Source/&#10;../../SimpleMultiBandComp/Source/GUI&#10;../../SimpleMultiBandComp/Source/DSP"/>
         <CONFIGURATION isDebug="0" name="Release" targetName="Project13" extraCompilerFlags="/std:c++20"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
