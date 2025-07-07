@@ -129,6 +129,14 @@ bool Project13AudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts
 }
 #endif
 
+juce::AudioProcessorValueTreeState::ParameterLayout
+Project13AudioProcessor::createParameterLayout()
+{
+	juce::AudioProcessorValueTreeState::ParameterLayout layout;
+
+	return layout;
+}
+
 void Project13AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     juce::ScopedNoDenormals noDenormals;
@@ -144,7 +152,7 @@ void Project13AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, ju
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    //TODO: add APVTS
+    //[DONE]TODO: add APVTS
 	//TODO: create audio parameter objects for each DSP option
 	//TODO: update dsp here from audio parameter
     //TODO: save/load settings
@@ -153,6 +161,8 @@ void Project13AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, ju
     //TODO: gui design for each dsp instance
     //TODO: metering
     //TODO: prepare all dsp
+
+
 
     auto newDSPOrder = DSP_Order();
 
